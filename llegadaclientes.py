@@ -3,6 +3,7 @@ import random
 import math
 
 #Este codigo lo hizo Juan Felipe Rojas Muñoz 
+#Codigo consiste en el comportamiento de 2 filas atienden a los clientes
 class Simulation:
     def __init__(self):
         """
