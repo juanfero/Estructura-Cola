@@ -2,7 +2,7 @@ import tkinter as tk
 import random
 import math
 
-
+#Este codigo lo hizo Juan Felipe Rojas Muñoz 
 class Simulation:
     def __init__(self):
         """
