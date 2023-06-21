@@ -5,12 +5,23 @@ import math
 
 class Simulation:
     def __init__(self):
+        """
+        Inicializa los atributos de la simulación.
+        """
         self.customers_served = [0, 0]  # Cantidad de clientes atendidos por cada caja
         self.customers_left = 0  # Cantidad de clientes que se marcharon sin hacer compras
         self.total_waiting_time = 0  # Tiempo total de espera de los clientes en cola
         self.queue = []  # Cola de clientes esperando ser atendidos
 
     def run_simulation(self, simulation_time, service_rate, arrival_rate):
+        """
+        Ejecuta la simulación de la cola del restaurante durante un tiempo determinado.
+
+        Args:
+            simulation_time (int): Tiempo de simulación en minutos.
+            service_rate (float): Tasa de servicio en clientes por hora.
+            arrival_rate (float): Tasa de llegada en clientes por hora.
+        """
         # Reiniciar los atributos de la simulación
         self.customers_served = [0, 0]
         self.customers_left = 0
@@ -26,12 +37,14 @@ class Simulation:
         customer_counter = 1
 
         while clock <= simulation_time:
+            # Verificar si un nuevo cliente llega y se une a la cola
             if len(self.queue) < 6:
                 self.queue.append(customer_counter)
                 customer_counter += 1
             else:
                 self.customers_left += 1
 
+            # Verificar si llega un nuevo cliente
             if random.random() <= arrival_time:
                 if len(self.queue) < 6:
                     self.queue.append(customer_counter)
@@ -39,6 +52,7 @@ class Simulation:
                 else:
                     self.customers_left += 1
 
+            # Verificar si un cliente es atendido
             if self.queue:
                 if random.random() <= service_time:
                     customer = self.queue.pop(0)
@@ -46,10 +60,15 @@ class Simulation:
                     self.customers_served[cashier_index] += 1
                     self.total_waiting_time += clock * service_time
 
-
             clock += 1
 
     def get_average_waiting_time(self):
+        """
+        Calcula el tiempo promedio de espera en la cola.
+
+        Returns:
+            float: Tiempo promedio de espera en minutos.
+        """
         if sum(self.customers_served) == 0:
             return 0
         return self.total_waiting_time / sum(self.customers_served)
@@ -57,6 +76,12 @@ class Simulation:
 
 class GUI:
     def __init__(self, root):
+        """
+        Inicializa la interfaz gráfica de usuario (GUI).
+
+        Args:
+            root (tk.Tk): La ventana principal de la GUI.
+        """
         self.root = root
         self.simulation = Simulation()
 
@@ -67,6 +92,9 @@ class GUI:
         self.setup_gui()
 
     def setup_gui(self):
+        """
+        Configura la interfaz gráfica de usuario.
+        """
         self.root.title("Simulación de Cola en Restaurante")
 
         # Etiquetas entrada de parámetros
@@ -97,6 +125,9 @@ class GUI:
         self.average_waiting_time_label.grid(row=7, column=1, sticky=tk.W)
 
     def run_simulation(self):
+        """
+        Ejecuta la simulación con los parámetros ingresados por el usuario y muestra los resultados en la GUI.
+        """
         simulation_time = int(self.simulation_time_var.get())
         service_rate = float(self.service_rate_var.get())
         arrival_rate = float(self.arrival_rate_var.get())
@@ -112,3 +143,4 @@ if __name__ == "__main__":
     root = tk.Tk()
     gui = GUI(root)
     root.mainloop()
+
