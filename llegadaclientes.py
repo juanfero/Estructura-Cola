@@ -3,8 +3,10 @@ import random
 import math
 
 # Universidad Sergio Arboleda
-#Este codigo lo hizo Juan Felipe Rojas Muñoz 
-#Codigo consiste en el comportamiento de 2 filas atienden a los clientes
+# Autor:  Juan Felipe Rojas Muñoz 
+#Codigo consiste en la simulación de dos filas en una tienda, esto utilizando la estructura de datos colas.
+
+ 
 class Simulation:
     def __init__(self):
         """
